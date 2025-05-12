@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sanrio Wonderland</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to bottom, #ffe6f0, #ffa0d0);
+      color: #ff69b4;
+      overflow-x: hidden;
+      background-image: url('https://i.pinimg.com/originals/0e/e6/b5/0ee6b51d46dc252ef0ec53e0a409e7ea.png');
+      background-size: cover;
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px;
+      background-color: rgba(255, 182, 193, 0.7);
+      box-shadow: 0 0 10px pink;
+    }
+
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      text-shadow: 2px 2px white;
+    }
+
+    .music-controls {
+      text-align: center;
+      margin: 20px;
+    }
+
+    .music-controls input[type="range"] {
+      width: 200px;
+    }
+
+    .characters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding: 30px;
+    }
+
+    .character {
+      text-align: center;
+      background-color: rgba(255, 240, 245, 0.8);
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: 0 0 10px pink;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .character:hover {
+      transform: scale(1.05) rotate(-2deg);
+    }
+
+    .character img {
+      width: 150px;
+      height: auto;
+      border-radius: 20px;
+      border: 3px solid #ffc0cb;
+      animation: floaty 3s ease-in-out infinite;
+    }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(255, 182, 193, 0.7);
+      font-size: 0.9em;
+    }
+
+    #player {
+      display: none;
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 5px white;
+      animation: sparkle-fall linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes sparkle-fall {
+      0% {
+        transform: translateY(-20px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎀 FAITHS COMFORT CORNER 🎀</h1>
+    <p>Relax and Breathe princess</p>
+  </header>
+
+  <!-- YouTube Background Music -->
+  <div class="music-controls">
+    <div id="player"></div>
+    <label for="volume">Volume: </label>
+    <input type="range" id="volume" min="0" max="100" step="1" value="10">
+  </div>
+
+  <section class="characters">
+    <div class="character">
+      <img class="gif" data-images='[
+        "https://gifdb.com/images/high/hello-kitty-smiling-coloring-lz6k44ng15gf65ey.webp",
+        "https://media.tenor.com/zVvViQKqa0MAAAAi/psybirdb1oom.gif",
+        "https://media1.tenor.com/m/9aNFYFKJijEAAAAC/kitty-lol-kittylove.gif"
+      ]' src="https://gifdb.com/images/high/hello-kitty-smiling-coloring-lz6k44ng15gf65ey.webp" alt="Hello Kitty">
+      <p>Hello Kitty</p>
+    </div>
+    <div class="character">
+      <img class="gif" data-images='[
+        "https://gifdb.com/images/high/my-melody-in-bed-v4nn4w3dgcoh5qe7.webp",
+        "https://media.tenor.com/o8hHjmdiSgAAAAAj/sanrio.gif",
+        "https://media.tenor.com/Z3cHKY-9vuQAAAAj/cingcing-my-melody.gif"
+      ]' src="https://gifdb.com/images/high/my-melody-in-bed-v4nn4w3dgcoh5qe7.webp" alt="My Melody">
+      <p>My Melody</p>
+    </div>
+    <div class="character">
+      <img class="gif" data-images='[
+        "https://gifdb.com/images/high/cinnamoroll-498-x-498-gif-oyi7dqx5azqmr2bb.webp",
+        "https://media.tenor.com/P5EJALTMklMAAAAj/cinnamoroll.gif",
+        "https://media.tenor.com/GsKe9_rmdswAAAAj/skating-skate-board.gif"
+      ]' src="https://gifdb.com/images/high/cinnamoroll-498-x-498-gif-oyi7dqx5azqmr2bb.webp" alt="Cinnamoroll">
+      <p>Cinnamoroll</p>
+    </div>
+  </section>
+
+  <footer>
+    💖 Made for a special princess by @educate 💖
+  </footer>
+
+  <!-- YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: 'jJ8uHVji_gY',
+        playerVars: {
+          autoplay: 1,
+          loop: 1,
+          playlist: 'jJ8uHVji_gY',
+          controls: 0,
+          modestbranding: 1,
+          showinfo: 0,
+          rel: 0
+        },
+        events: {
+          onReady: (event) => {
+            event.target.setVolume(10);
+            event.target.playVideo();
+          }
+        }
+      });
+    }
+
+    document.getElementById('volume').addEventListener('input', function () {
+      if (player && player.setVolume) {
+        player.setVolume(this.value);
+      }
+    });
+
+    // GIF Cycler
+    setInterval(() => {
+      document.querySelectorAll('.gif').forEach(img => {
+        const imgs = JSON.parse(img.dataset.images);
+        const currentIndex = imgs.indexOf(img.src);
+        const nextIndex = (currentIndex + 1) % imgs.length;
+        img.src = imgs[nextIndex];
+      });
+    }, 4000); // change every 4 seconds
+
+    // Sparkles generator
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = Math.random() * 100 + 'vw';
+      sparkle.style.animationDuration = 3 + Math.random() * 2 + 's';
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 5000);
+    }
+    setInterval(createSparkle, 300);
+  </script>
+
+</body>
+</html>
