@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sanrio Wonderland</title>
+  <title>FAITHS COMFORT CORNER</title>
   <style>
     body {
       margin: 0;
@@ -14,6 +14,35 @@
       background-size: cover;
       background-attachment: fixed;
       position: relative;
+    }
+
+    #enter-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 240, 245, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #enter-screen button {
+      font-size: 1.5em;
+      padding: 15px 30px;
+      background: #ffb6c1;
+      border: none;
+      border-radius: 15px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px pink;
+      transition: transform 0.2s ease;
+    }
+
+    #enter-screen button:hover {
+      transform: scale(1.05);
     }
 
     header {
@@ -79,11 +108,10 @@
       font-size: 0.9em;
     }
 
-    #player {
+    audio {
       display: none;
     }
 
-    /* Sparkles */
     .sparkle {
       position: absolute;
       width: 10px;
@@ -109,83 +137,83 @@
 </head>
 <body>
 
-  <header>
-    <h1>🎀 FAITHS COMFORT CORNER 🎀</h1>
-    <p>Relax and Breathe princess</p>
-  </header>
-
-  <!-- YouTube Background Music -->
-  <div class="music-controls">
-    <div id="player"></div>
-    <label for="volume">Volume: </label>
-    <input type="range" id="volume" min="0" max="100" step="1" value="10">
+  <!-- Enter Screen -->
+  <div id="enter-screen">
+    <h1>🎀 Welcome Princess 🎀</h1>
+    <p>Click below to enter your comfort corner 💗</p>
+    <button onclick="enterSite()">Enter</button>
   </div>
 
-  <section class="characters">
-    <div class="character">
-      <img class="gif" data-images='[
-        "https://gifdb.com/images/high/hello-kitty-smiling-coloring-lz6k44ng15gf65ey.webp",
-        "https://media.tenor.com/zVvViQKqa0MAAAAi/psybirdb1oom.gif",
-        "https://media1.tenor.com/m/9aNFYFKJijEAAAAC/kitty-lol-kittylove.gif"
-      ]' src="https://gifdb.com/images/high/hello-kitty-smiling-coloring-lz6k44ng15gf65ey.webp" alt="Hello Kitty">
-      <p>Hello Kitty</p>
-    </div>
-    <div class="character">
-      <img class="gif" data-images='[
-        "https://gifdb.com/images/high/my-melody-in-bed-v4nn4w3dgcoh5qe7.webp",
-        "https://media.tenor.com/o8hHjmdiSgAAAAAj/sanrio.gif",
-        "https://media.tenor.com/Z3cHKY-9vuQAAAAj/cingcing-my-melody.gif"
-      ]' src="https://gifdb.com/images/high/my-melody-in-bed-v4nn4w3dgcoh5qe7.webp" alt="My Melody">
-      <p>My Melody</p>
-    </div>
-    <div class="character">
-      <img class="gif" data-images='[
-        "https://gifdb.com/images/high/cinnamoroll-498-x-498-gif-oyi7dqx5azqmr2bb.webp",
-        "https://media.tenor.com/P5EJALTMklMAAAAj/cinnamoroll.gif",
-        "https://media.tenor.com/GsKe9_rmdswAAAAj/skating-skate-board.gif"
-      ]' src="https://gifdb.com/images/high/cinnamoroll-498-x-498-gif-oyi7dqx5azqmr2bb.webp" alt="Cinnamoroll">
-      <p>Cinnamoroll</p>
-    </div>
-  </section>
+  <!-- Audio Player -->
+  <audio id="player" loop>
+    <source src="music/Forget Her.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
-  <footer>
-    💖 Made for a special princess by @educate 💖
-  </footer>
+  <!-- Page Content -->
+  <div id="main-content" style="display: none;">
+    <header>
+      <h1>🎀 FAITHS COMFORT CORNER 🎀</h1>
+      <p>Relax and Breathe princess</p>
+    </header>
 
-  <!-- YouTube IFrame API -->
-  <script src="https://www.youtube.com/iframe_api"></script>
+    <div class="music-controls">
+      <label for="volume">Volume: </label>
+      <input type="range" id="volume" min="0" max="100" step="1" value="10">
+    </div>
+
+    <section class="characters">
+      <div class="character">
+        <img class="gif" data-images='[
+          "https://gifdb.com/images/high/hello-kitty-smiling-coloring-lz6k44ng15gf65ey.webp",
+          "https://media.tenor.com/zVvViQKqa0MAAAAi/psybirdb1oom.gif",
+          "https://media1.tenor.com/m/9aNFYFKJijEAAAAC/kitty-lol-kittylove.gif"
+        ]' src="https://gifdb.com/images/high/hello-kitty-smiling-coloring-lz6k44ng15gf65ey.webp" alt="Hello Kitty">
+        <p>Hello Kitty</p>
+      </div>
+      <div class="character">
+        <img class="gif" data-images='[
+          "https://gifdb.com/images/high/my-melody-in-bed-v4nn4w3dgcoh5qe7.webp",
+          "https://media.tenor.com/o8hHjmdiSgAAAAAj/sanrio.gif",
+          "https://media.tenor.com/Z3cHKY-9vuQAAAAj/cingcing-my-melody.gif"
+        ]' src="https://gifdb.com/images/high/my-melody-in-bed-v4nn4w3dgcoh5qe7.webp" alt="My Melody">
+        <p>My Melody</p>
+      </div>
+      <div class="character">
+        <img class="gif" data-images='[
+          "https://gifdb.com/images/high/cinnamoroll-498-x-498-gif-oyi7dqx5azqmr2bb.webp",
+          "https://media.tenor.com/P5EJALTMklMAAAAj/cinnamoroll.gif",
+          "https://media.tenor.com/GsKe9_rmdswAAAAj/skating-skate-board.gif"
+        ]' src="https://gifdb.com/images/high/cinnamoroll-498-x-498-gif-oyi7dqx5azqmr2bb.webp" alt="Cinnamoroll">
+        <p>Cinnamoroll</p>
+      </div>
+    </section>
+
+    <footer>
+      💖 Made for a special princess by @educate 💖
+    </footer>
+  </div>
+
   <script>
-    let player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        videoId: 'jJ8uHVji_gY',
-        playerVars: {
-          autoplay: 1,
-          loop: 1,
-          playlist: 'jJ8uHVji_gY',
-          controls: 0,
-          modestbranding: 1,
-          showinfo: 0,
-          rel: 0
-        },
-        events: {
-          onReady: (event) => {
-            event.target.setVolume(10);
-            event.target.playVideo();
-          }
-        }
+    const player = document.getElementById('player');
+    const volumeSlider = document.getElementById('volume');
+
+    function enterSite() {
+      document.getElementById('enter-screen').style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+
+      // Start music
+      player.volume = volumeSlider.value / 100;
+      player.play().catch(() => {
+        console.warn("Autoplay blocked.");
       });
     }
 
-    document.getElementById('volume').addEventListener('input', function () {
-      if (player && player.setVolume) {
-        player.setVolume(this.value);
-      }
+    volumeSlider.addEventListener('input', () => {
+      player.volume = volumeSlider.value / 100;
     });
 
-    // GIF Cycler
+    // GIF cycler
     setInterval(() => {
       document.querySelectorAll('.gif').forEach(img => {
         const imgs = JSON.parse(img.dataset.images);
@@ -193,7 +221,7 @@
         const nextIndex = (currentIndex + 1) % imgs.length;
         img.src = imgs[nextIndex];
       });
-    }, 4000); // change every 4 seconds
+    }, 4000);
 
     // Sparkles generator
     function createSparkle() {
