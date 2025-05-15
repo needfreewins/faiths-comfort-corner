@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>FAITHS COMFORT CORNER</title>
   <style>
     body {
@@ -27,6 +27,7 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
+      gap: 15px;
     }
 
     #enter-screen button {
@@ -39,6 +40,7 @@
       cursor: pointer;
       box-shadow: 0 0 10px pink;
       transition: transform 0.2s ease;
+      min-width: 140px;
     }
 
     #enter-screen button:hover {
@@ -61,10 +63,30 @@
     .music-controls {
       text-align: center;
       margin: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
     }
 
     .music-controls input[type="range"] {
       width: 200px;
+    }
+
+    .music-controls button {
+      font-size: 1em;
+      padding: 8px 15px;
+      background: #ffb6c1;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 8px pink;
+      transition: transform 0.2s ease;
+    }
+
+    .music-controls button:hover {
+      transform: scale(1.1);
     }
 
     .characters {
@@ -139,27 +161,25 @@
 
   <!-- Enter Screen -->
   <div id="enter-screen">
-    <h1>🎀 Welcome Princess 🎀</h1>
+    <h1>🎀 Welcome Baby 🎀</h1>
     <p>Click below to enter your comfort corner 💗</p>
     <button onclick="enterSite()">Enter</button>
   </div>
 
-  <!-- Audio Player -->
-  <audio id="player" loop>
-    <source src="music/Forget Her.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+  <!-- Hidden Audio Element -->
+  <audio id="player"></audio>
 
   <!-- Page Content -->
   <div id="main-content" style="display: none;">
     <header>
       <h1>🎀 FAITHS COMFORT CORNER 🎀</h1>
-      <p>Relax and Breathe princess</p>
+      <p>Relax and Breathe Dear</p>
     </header>
 
     <div class="music-controls">
       <label for="volume">Volume: </label>
-      <input type="range" id="volume" min="0" max="100" step="1" value="10">
+      <input type="range" id="volume" min="0" max="100" step="1" value="10" />
+      <button id="skip-btn" title="Skip to next song">Skip ▶️</button>
     </div>
 
     <section class="characters">
@@ -168,7 +188,7 @@
           "https://gifdb.com/images/high/hello-kitty-smiling-coloring-lz6k44ng15gf65ey.webp",
           "https://media.tenor.com/zVvViQKqa0MAAAAi/psybirdb1oom.gif",
           "https://media1.tenor.com/m/9aNFYFKJijEAAAAC/kitty-lol-kittylove.gif"
-        ]' src="https://gifdb.com/images/high/hello-kitty-smiling-coloring-lz6k44ng15gf65ey.webp" alt="Hello Kitty">
+        ]' src="https://gifdb.com/images/high/hello-kitty-smiling-coloring-lz6k44ng15gf65ey.webp" alt="Hello Kitty" />
         <p>Hello Kitty</p>
       </div>
       <div class="character">
@@ -176,7 +196,7 @@
           "https://gifdb.com/images/high/my-melody-in-bed-v4nn4w3dgcoh5qe7.webp",
           "https://media.tenor.com/o8hHjmdiSgAAAAAj/sanrio.gif",
           "https://media.tenor.com/Z3cHKY-9vuQAAAAj/cingcing-my-melody.gif"
-        ]' src="https://gifdb.com/images/high/my-melody-in-bed-v4nn4w3dgcoh5qe7.webp" alt="My Melody">
+        ]' src="https://gifdb.com/images/high/my-melody-in-bed-v4nn4w3dgcoh5qe7.webp" alt="My Melody" />
         <p>My Melody</p>
       </div>
       <div class="character">
@@ -184,56 +204,82 @@
           "https://gifdb.com/images/high/cinnamoroll-498-x-498-gif-oyi7dqx5azqmr2bb.webp",
           "https://media.tenor.com/P5EJALTMklMAAAAj/cinnamoroll.gif",
           "https://media.tenor.com/GsKe9_rmdswAAAAj/skating-skate-board.gif"
-        ]' src="https://gifdb.com/images/high/cinnamoroll-498-x-498-gif-oyi7dqx5azqmr2bb.webp" alt="Cinnamoroll">
+        ]' src="https://gifdb.com/images/high/cinnamoroll-498-x-498-gif-oyi7dqx5azqmr2bb.webp" alt="Cinnamoroll" />
         <p>Cinnamoroll</p>
       </div>
     </section>
 
     <footer>
-      💖 Made for a special princess by @educate 💖
+      💖 Made for a special sweetheart by @educate 💖
     </footer>
   </div>
 
   <script>
+    const playlist = [
+      "music/Forget Her.mp3",
+      "music/Turn The Music Louder.mp3",
+      "music/Casual.mp3"
+    ];
+
+    let currentSong = 0;
     const player = document.getElementById('player');
     const volumeSlider = document.getElementById('volume');
+    const skipBtn = document.getElementById('skip-btn');
 
     function enterSite() {
       document.getElementById('enter-screen').style.display = 'none';
       document.getElementById('main-content').style.display = 'block';
+      startMusic();
+      startGifCycles();
+      spawnSparkles(20);
+    }
 
-      // Start music
+    function startMusic() {
+      player.src = playlist[currentSong];
       player.volume = volumeSlider.value / 100;
-      player.play().catch(() => {
-        console.warn("Autoplay blocked.");
-      });
+      player.play();
+
+      player.onended = () => {
+        nextSong();
+      }
+    }
+
+    function nextSong() {
+      currentSong = (currentSong + 1) % playlist.length;
+      player.src = playlist[currentSong];
+      player.play();
     }
 
     volumeSlider.addEventListener('input', () => {
       player.volume = volumeSlider.value / 100;
     });
 
-    // GIF cycler
-    setInterval(() => {
-      document.querySelectorAll('.gif').forEach(img => {
-        const imgs = JSON.parse(img.dataset.images);
-        const currentIndex = imgs.indexOf(img.src);
-        const nextIndex = (currentIndex + 1) % imgs.length;
-        img.src = imgs[nextIndex];
+    skipBtn.addEventListener('click', () => {
+      nextSong();
+    });
+    function startGifCycles() {
+      const gifs = document.querySelectorAll('.gif');
+      gifs.forEach(gif => {
+        const images = JSON.parse(gif.getAttribute('data-images'));
+        let index = 0;
+        setInterval(() => {
+          index = (index + 1) % images.length;
+          gif.src = images[index];
+        }, 3000);
       });
-    }, 4000);
-
-    // Sparkles generator
-    function createSparkle() {
-      const sparkle = document.createElement('div');
-      sparkle.classList.add('sparkle');
-      sparkle.style.left = Math.random() * 100 + 'vw';
-      sparkle.style.animationDuration = 3 + Math.random() * 2 + 's';
-      document.body.appendChild(sparkle);
-      setTimeout(() => sparkle.remove(), 5000);
     }
-    setInterval(createSparkle, 300);
+    function spawnSparkles(count) {
+      for(let i = 0; i < count; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = Math.random() * 100 + 'vw';
+        sparkle.style.animationDuration = 3 + Math.random() * 3 + 's';
+        sparkle.style.animationDelay = Math.random() * 5 + 's';
+        document.body.appendChild(sparkle);
+        sparkle.addEventListener('animationend', () => sparkle.remove());
+      }
+      setTimeout(() => spawnSparkles(count), 5000);
+    }
   </script>
-
 </body>
 </html>
